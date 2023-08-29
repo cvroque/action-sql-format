@@ -28,7 +28,7 @@ for file in sys.argv[1:]:
                                 use_space_around_operators=True,
                                 indent_tabs=False,
                                 indent_width=2,
-                                comma_first=False)
+                                comma_first=True)
 
     if original == formatted:
         print("  - Unchanged")
