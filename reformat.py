@@ -22,12 +22,15 @@ print("Reformatting files")
 for file in sys.argv[1:]:
     print("* " + file + ":")
     original = read_file(file)
-    formatted = sqlparse.format(original, reindent=True, keyword_case='upper',
+    formatted = sqlparse.format(original, reindent=False,
+                                reindent_aligned=True,
+                                keyword_case='upper',
+                                identifier_case='lower',
                                 strip_comments=False,
-                                re_indent=True,
                                 use_space_around_operators=True,
                                 indent_tabs=False,
                                 indent_width=2,
+                                wrap_after=120,
                                 comma_first=True)
 
     if original == formatted:
