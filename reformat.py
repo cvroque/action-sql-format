@@ -31,6 +31,7 @@ for file in sys.argv[1:]:
                                 indent_tabs=False,
                                 indent_width=2,
                                 wrap_after=120,
+                                reindent_aligned_blocks=[('UNION ALL', ['SELECT'])],
                                 comma_first=True)
 
     if original == formatted:
