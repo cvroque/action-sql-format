@@ -25,7 +25,7 @@ for file in sys.argv[1:]:
     formatted = sqlparse.format(original, reindent=False,
                                 reindent_aligned=True,
                                 keyword_case='upper',
-                                identifier_case='lower',
+                                identifier_case='upper',
                                 strip_comments=False,
                                 use_space_around_operators=True,
                                 indent_tabs=False,
