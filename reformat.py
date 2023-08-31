@@ -22,18 +22,25 @@ print("Reformatting files")
 for file in sys.argv[1:]:
     print("* " + file + ":")
     original = read_file(file)
+    
+    # Temporary replacement of @@FETCH_STATUS
+    original = original.replace('@@ FETCH_STATUS', '__AT_AT_FETCH_STATUS__')
+    
     formatted = sqlparse.format(original, reindent=False,
                                 reindent_aligned=True,
-                                keyword_case='preserve',
+                                keyword_case='upper',
                                 identifier_case='upper',
-                                strip_comments=False,
+                                strip_comments=False,  # Keep comments
                                 use_space_around_operators=True,
                                 indent_tabs=False,
                                 indent_width=2,
                                 wrap_after=120,
                                 reindent_aligned_blocks=[('UNION ALL', ['SELECT'])],
-                                comma_first=True,
-                                strip_trailing_whitespace=True)
+                                comma_first=True)
+    
+    # Restore @@FETCH_STATUS after formatting
+    formatted = formatted.replace('__AT_AT_FETCH_STATUS__', '@@FETCH_STATUS')
+
 
     if original == formatted:
         print("  - Unchanged")
