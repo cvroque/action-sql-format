@@ -24,7 +24,7 @@ for file in sys.argv[1:]:
     original = read_file(file)
     formatted = sqlparse.format(original, reindent=False,
                                 reindent_aligned=True,
-                                keyword_case='upper',
+                                keyword_case='preserve',
                                 identifier_case='upper',
                                 strip_comments=False,
                                 use_space_around_operators=True,
@@ -32,7 +32,8 @@ for file in sys.argv[1:]:
                                 indent_width=2,
                                 wrap_after=120,
                                 reindent_aligned_blocks=[('UNION ALL', ['SELECT'])],
-                                comma_first=True)
+                                comma_first=True,
+                                strip_trailing_whitespace=True)
 
     if original == formatted:
         print("  - Unchanged")
