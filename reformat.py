@@ -23,8 +23,9 @@ for file in sys.argv[1:]:
     print("* " + file + ":")
     original = read_file(file)
     
-    # Temporary replacement of @@FETCH_STATUS
+    # Temporary replacement 
     original = original.replace('@@ FETCH_STATUS', '__AT_AT_FETCH_STATUS__')
+    original = original.replace('*/', '__COMMENT_END__')
     
     formatted = sqlparse.format(original, reindent=False,
                                 reindent_aligned=True,
@@ -38,8 +39,9 @@ for file in sys.argv[1:]:
                                 reindent_aligned_blocks=[('UNION ALL', ['SELECT'])],
                                 comma_first=True)
     
-    # Restore @@FETCH_STATUS after formatting
+    # Restore after formatting
     formatted = formatted.replace('__AT_AT_FETCH_STATUS__', '@@FETCH_STATUS')
+    formatted = formatted.replace('__COMMENT_END__', '*/')
 
 
     if original == formatted:
