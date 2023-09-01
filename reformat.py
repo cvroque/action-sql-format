@@ -25,6 +25,7 @@ for file in sys.argv[1:]:
     
     # Temporary replacement 
     original = original.replace('@@ FETCH_STATUS', '__AT_AT_FETCH_STATUS__')
+    original = original.replace('@@FETCH_STATUS', '__AT_AT_FETCH_STATUS__')
     original = original.replace('*/', '__COMMENT_END__')
     
     formatted = sqlparse.format(original, reindent=False,
