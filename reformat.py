@@ -1,16 +1,19 @@
 #! /usr/bin/python3
-
 import sys
 import sqlparse
-
+import chardet
 
 def read_file(file_name):
-    with open(file_name, "r") as f:
+    # Use chardet to detect the encoding
+    with open(file_name, "rb") as f:
+        result = chardet.detect(f.read())
+    
+    detected_encoding = result['encoding']
+
+    with open(file_name, "r", encoding=detected_encoding) as f:
         source = f.read()
-        f.close()
 
     return source
-
 
 def write_file(file_name, content):
     with open(file_name, "w") as f:
