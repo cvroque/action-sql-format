@@ -1,4 +1,3 @@
-#! /usr/bin/python3
 import sys
 import sqlparse
 import chardet
@@ -10,15 +9,16 @@ def read_file(file_name):
     
     detected_encoding = result['encoding']
 
+    # Specify the detected encoding when reading the file
     with open(file_name, "r", encoding=detected_encoding) as f:
         source = f.read()
 
     return source
 
-def write_file(file_name, content):
-    with open(file_name, "w") as f:
+def write_file(file_name, content, encoding):
+    # Specify the encoding when writing the file
+    with open(file_name, "w", encoding=encoding) as f:
         f.write(content)
-
 
 print("Reformatting files")
 # Pretty print input files
@@ -47,9 +47,10 @@ for file in sys.argv[1:]:
     formatted = formatted.replace('__AT_AT_FETCH_STATUS__', '@@FETCH_STATUS')
     formatted = formatted.replace('__COMMENT_END__', '*/')
 
-
     if original == formatted:
         print("  - Unchanged")
     else:
         print("  - Changed")
-        write_file(file, formatted)
+
+    # Use the detected encoding when writing the file
+    write_file(file, formatted, detected_encoding)
