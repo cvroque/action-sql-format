@@ -13,7 +13,7 @@ def read_file(file_name):
     with open(file_name, "r", encoding=detected_encoding) as f:
         source = f.read()
 
-    return source
+    return source, detected_encoding  # Return both source content and detected encoding
 
 def write_file(file_name, content, encoding):
     # Specify the encoding when writing the file
@@ -24,14 +24,15 @@ print("Reformatting files")
 # Pretty print input files
 for file in sys.argv[1:]:
     print("* " + file + ":")
-    original = read_file(file)
+    
+    original, detected_encoding = read_file(file)  # Get both source content and detected encoding
     
     # Temporary replacement 
     original = original.replace('@@ FETCH_STATUS', '__AT_AT_FETCH_STATUS__')
     original = original.replace('@@FETCH_STATUS', '__AT_AT_FETCH_STATUS__')
     original = original.replace('*/', '__COMMENT_END__')
     
-    formatted = sqlparse.format(original, reindent=True,
+    formatted = sqlparse.format(original, reindent=False,
                                 reindent_aligned=True,
                                 keyword_case='upper',
                                 identifier_case='upper',
