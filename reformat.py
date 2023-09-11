@@ -30,6 +30,7 @@ for file in sys.argv[1:]:
     # Temporary replacement 
     original = original.replace('@@ FETCH_STATUS', '__AT_AT_FETCH_STATUS__')
     original = original.replace('@@FETCH_STATUS', '__AT_AT_FETCH_STATUS__')
+    original = original.replace('/*', '__COMMENT_START__')
     original = original.replace('*/', '__COMMENT_END__')
     
     formatted = sqlparse.format(original, reindent=False,
@@ -37,7 +38,7 @@ for file in sys.argv[1:]:
                                 keyword_case='upper',
                                 identifier_case='upper',
                                 strip_comments=False,  # Keep comments
-                                use_space_around_operators=True,
+                                use_space_around_operators=False,
                                 indent_tabs=False,
                                 indent_width=2,
                                 wrap_after=120,
@@ -46,6 +47,7 @@ for file in sys.argv[1:]:
     
     # Restore after formatting
     formatted = formatted.replace('__AT_AT_FETCH_STATUS__', '@@FETCH_STATUS')
+    formatted = formatted.replace('__COMMENT_START__', '/*')
     formatted = formatted.replace('__COMMENT_END__', '*/')
 
     if original == formatted:
