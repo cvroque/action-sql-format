@@ -31,7 +31,9 @@ for file in sys.argv[1:]:
     original = original.replace('@@ FETCH_STATUS', '__AT_AT_FETCH_STATUS__')
     original = original.replace('@@FETCH_STATUS', '__AT_AT_FETCH_STATUS__')
     original = original.replace('/*', '__COMMENT_START__')
+    original = original.replace('/ *', '__COMMENT_START__')
     original = original.replace('*/', '__COMMENT_END__')
+    original = original.replace('* /', '__COMMENT_END__')
     
     formatted = sqlparse.format(original, reindent=False,
                                 reindent_aligned=True,
