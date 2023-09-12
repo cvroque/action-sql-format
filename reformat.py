@@ -39,11 +39,11 @@ for file in sys.argv[1:]:
                                 reindent_aligned=True,
                                 keyword_case='upper',
                                 identifier_case='upper',
-                                strip_comments=False,  # Keep comments
+                                strip_comments=False,  
                                 use_space_around_operators=False,
                                 indent_tabs=False,
                                 indent_width=2,
-                                wrap_after=120,
+                                wrap_after=250,
                                 reindent_aligned_blocks=[('UNION ALL', ['SELECT'])],
                                 comma_first=True)
     
