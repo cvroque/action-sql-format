@@ -35,7 +35,7 @@ for file in sys.argv[1:]:
     original = original.replace('*/', '__COMMENT_END__')
     original = original.replace('* /', '__COMMENT_END__')
     
-    formatted = sqlparse.format(original, reindent=False,
+    formatted = sqlparse.format(original, reindent=True,
                                 reindent_aligned=True,
                                 keyword_case='upper',
                                 identifier_case='upper',
