@@ -36,15 +36,16 @@ for file in sys.argv[1:]:
     original = original.replace('* /', '__COMMENT_END__')
     
     formatted = sqlparse.format(original, reindent=True,
-                                reindent_aligned=True,
                                 keyword_case='upper',
                                 identifier_case='upper',
                                 strip_comments=False,  
                                 use_space_around_operators=False,
                                 indent_tabs=False,
                                 indent_width=2,
-                                wrap_after=250,
-                                reindent_aligned_blocks=[('UNION ALL', ['SELECT'])],
+                                reindent_aligned_blocks=[
+                                    ('BEGIN', ['END']),
+                                    ('UNION ALL', ['SELECT'])
+                                ],
                                 comma_first=True)
     
     # Restore after formatting
